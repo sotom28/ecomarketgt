@@ -14,27 +14,34 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Table(name = "usuario")
-@Entity
+@AllArgsConstructor // contructor con parametros
+@NoArgsConstructor // contructor sin parametros
+@Data // getters y setters 
+@Table(name = "usuario")  //nombre de la tabla en la base de datos
+
+@Entity // indica que es una entidad de la base de datos
 public class Usuarioo {
-    @Id
+    @Id // indica que es la llave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     
     @Column(nullable = false)
     private String nombre;
     
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
     
     @Column(nullable = false)
     private String telefono;
     
     @Column(nullable = false)
+    private String direccion;
+    
+    @Column(nullable = false)
     private String password;
+
+    
+
 
     @ManyToOne
     @JoinColumn(name = "perfil_id", nullable = false)
