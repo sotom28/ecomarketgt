@@ -19,30 +19,41 @@ public class UsuariooService {
     public List<Usuarioo> findAll(){
         return usuariooRepository.findAll();
     }
-    // crear usuario en la base de datos
+    
+    // guardar usuario en la base de datos
     public Usuarioo guardar(Usuarioo usuarioo) {
         return usuariooRepository.save(usuarioo);
     }
-    /// metodo para eliminar un suario por id
-    public void delete(long id){
-        usuariooRepository.deleteById(id);
+
+
+    /// eliminar usuario por id
+    public void delete(long id) {
+        if (usuariooRepository.existsById(id)) {
+            usuariooRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("El usuario con la ID " + id + " no existe");
+        }
     }
-    
-    
-    public Usuarioo save(Usuarioo usuarioo) {
-        // implementar la logica para guardar el usuario en la base de datos
-        return usuarioo;
-    
-    
-    }
+    // buscar usuario por id
     public Usuarioo findById(long id) {
-        return usuariooRepository.findById(id).orElse(null);
+        return usuariooRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("El usuario con la ID " + id + " no existe"));
     }
 
-    
-    
+    ///// actualizar usuario
+    public Usuarioo actualizarUsuario(Usuarioo usuarioo){
+        return usuariooRepository.save(usuarioo);
+    }
 
-
+        
+    //buscar usuario por nombres
+        public Usuarioo findByNombres(String nombres){
+            return usuariooRepository.findByNombres(nombres);
+        }
 
 
 }
+
+
+     
+
