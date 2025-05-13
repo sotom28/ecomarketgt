@@ -47,9 +47,9 @@ public class UsuariooService {
 
         
     //buscar usuario por nombres
-        public Usuarioo findByNombres(String nombres){
-            return usuariooRepository.findByNombres(nombres);
-        }
+    public List<Usuarioo> findByNombres(String nombres){
+        return usuariooRepository.findByNombres(nombres);
+    }
 
 
 }

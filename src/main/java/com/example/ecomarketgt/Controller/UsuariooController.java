@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ecomarketgt.Modelo.Usuarioo;
 import com.example.ecomarketgt.Service.UsuariooService;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 
 
@@ -36,12 +37,12 @@ public class UsuariooController {
         "GET /api/usuario/listar - listar todos los usuarios",
         "POST /api/usuario/guardar - guardar un usaurio",
         "GET /api/usuario/obtenerporid - buscar un usuario por id",
-        "DELETE /api/usuario/eliminarporid - elimianar un usuario por id"
+        "DELETE /api/usuario/eliminarporid - eliminar un usuario por id"
     );
 
     return ResponseEntity.ok(metodos);
     
-}
+    }
 
     // ok
     // listar todos los usuarios 
@@ -76,6 +77,7 @@ public class UsuariooController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); 
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+             
         }
     
     }
@@ -100,37 +102,32 @@ public class UsuariooController {
        // espera
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Usuarioo> actualizarUsuario(@PathVariable long id, @RequestBody Usuarioo usuarioo) {
-        try {
-            // verifica si el usuario existe
-            usuarioService.findById(id); // Ensure the user exists
-            usuarioo.setId(id);
-
-            Usuarioo usuarioActualizado = usuarioService.actualizarUsuario(usuarioo);
-            
-            return ResponseEntity.ok(usuarioActualizado);
-            }catch (IllegalArgumentException e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build(); // Devuelve un 404 si no se encuentra el usuario
-            }catch (Exception e) {
-            // manejo de errores
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
+    try {
+        usuarioo.setId(id);
+        Usuarioo usuarioActualizado = usuarioService.actualizarUsuario(usuarioo);
+        return ResponseEntity.ok(usuarioActualizado);
+    } catch (IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
     
-
+    }
 
     // espera
     // buscar usuario por nombres
     @GetMapping("/buscarnombres/{nombres}")
-    public ResponseEntity<Usuarioo> buscapornombres (@PathVariable String nombres){
-        try{
-        Usuarioo usuario = usuarioService.findByNombres(nombres);
-        if (usuario == null){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(usuario); // Devuelve el usuario encontrado 200 OK
-        }catch (Exception e){
+    public ResponseEntity<List<Usuarioo>> buscarPorNombres(@PathVariable String nombres) {
+        List<Usuarioo> usuarios;
+        try {
+            usuarios = usuarioService.findByNombres(nombres);
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+        if (usuarios == null || usuarios.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(usuarios);
     }
 
 
