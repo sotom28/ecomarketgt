@@ -15,13 +15,14 @@ public class UsuariooService {
 
     @Autowired
     private UsuariooRepository usuariooRepository;
+    // ok
     /// revista lista de usuarios
     public List<Usuarioo> findAll(){
         return usuariooRepository.findAll();
     }
     
     // guardar usuario en la base de datos
-    public Usuarioo guardar(Usuarioo usuarioo) {
+    public Usuarioo Guardar (Usuarioo usuarioo) {
         return usuariooRepository.save(usuarioo);
     }
 
@@ -52,7 +53,20 @@ public class UsuariooService {
     }
 
 
-}
+    // buscar usuario por email
+    public List<Usuarioo> findByEmail(String email){
+        return usuariooRepository.findByEmail(email);
+    }
+        // buscar usuario por rut
+    public List<Usuarioo> findByRut(String rut){
+        return usuariooRepository.findByRut(rut);
+    }
+
+    
+    }
+
+    
+
 
 
      

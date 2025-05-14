@@ -29,7 +29,7 @@ public class Usuarioo {
     private long id;
 
 
-    @Column(nullable = false, unique = true) // 
+    @Column(nullable = false) // 
     private String rut;// rut del usuario
     
     @Column(nullable = false)

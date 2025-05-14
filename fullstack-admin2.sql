@@ -9,6 +9,7 @@ INSERT INTO perfil (id_Perfil, descripcion, permiso) VALUES (2, 'USUARIO', 'MEDI
 INSERT INTO usuario (id, id_perfil, apellidos, direccion, email, nombres, password, rut, telefono) VALUES (1, 1, 'Perez', 'Calle 1', 'juan.perez@example.com', 'Juan', 'password123', '12345678-9', '123456789');
 INSERT INTO usuario (id, id_perfil, apellidos, direccion, email, nombres, password, rut, telefono) VALUES(2, 2, 'Lopez', 'Calle 2', 'maria.lopez@example.com', 'Maria', 'password456', '98765432-1', '987654321');
 INSERT INTO usuario (id, id_perfil, apellidos, direccion, email, nombres, password, rut, telefono) VALUES(3, 1, 'Gomez', 'Calle 3', 'ana.gomez@example.com', 'Ana', 'password789', '11223344-5', '1122334455');
+
 INSERT INTO usuario (id, id_perfil, apellidos, direccion, email, nombres, password, rut, telefono) VALUES(4, 2, 'Martinez', 'Calle 4', 'carlos.martinez@example.com', 'Carlos', 'password321', '55667788-6', '5566778899');
 INSERT INTO usuario (id, id_perfil, apellidos, direccion, email, nombres, password, rut, telefono) VALUES(5, 1, 'Hernandez', 'Calle 5', 'sofia.hernandez@example.com', 'Sofia', 'password555', '33445566-7', '3344556677'),
 INSERT INTO usuario (id, id_perfil, apellidos, direccion, email, nombres, password, rut, telefono) VALUES(6, 2, 'Ramirez', 'Calle 6', 'luis.ramirez@example.com', 'Luis', 'password666', '99887766-5', '9988776655');
