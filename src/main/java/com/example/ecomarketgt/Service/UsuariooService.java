@@ -42,9 +42,13 @@ public class UsuariooService {
     }
 
     ///// actualizar usuario
-    public Usuarioo actualizarUsuario(Usuarioo usuarioo){
-        return usuariooRepository.save(usuarioo);
-    }
+    public Usuarioo update(Usuarioo usuarioo) {
+        if (usuariooRepository.existsById(usuarioo.getId())) {
+            return usuariooRepository.save(usuarioo);
+        } else {
+            throw new IllegalArgumentException("El usuario con la ID " + usuarioo.getId() + " no existe");
+        }
+    }       
 
         
     //buscar usuario por nombres

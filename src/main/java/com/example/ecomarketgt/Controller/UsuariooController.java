@@ -40,7 +40,11 @@ public class UsuariooController {
         "POST /api/usuario/guardar - guardar un usaurio",
         "GET /api/usuario/obtenerporid - buscar un usuario por id",
         "DELETE /api/usuario/eliminarporid - eliminar un usuario por id",
-        "GET /api/usuario/buscarnombre - buscar un usuario por nombre"
+        "GET /api/usuario/buscarnombre - buscar un usuario por nombre",
+        "GET /api/usuario/buscaremail - buscar un usuario por email",
+        "GET /api/usuario/buscarrut - buscar un usuario por rut",
+        "PUT /api/usuario/actualizar - actualizar un usuario por id"
+
     );
 
     return ResponseEntity.ok(metodos);
@@ -101,13 +105,14 @@ public class UsuariooController {
 
 
    
-       // espera
+       // ok    // actualizar un usuario por id 
     @PutMapping("/actualizar/{id}")
     public ResponseEntity<Usuarioo> actualizarUsuario(@PathVariable long id, @RequestBody Usuarioo usuarioo) {
     try {
         
-        usuarioo.setId(id);
-        Usuarioo usuarioActualizado = usuarioService.actualizarUsuario(usuarioo);
+        usuarioo.setId(id); // Establece el ID del usuario a actualizar
+        // Verifica si el usuario existe
+        Usuarioo usuarioActualizado = usuarioService.update(usuarioo);
         return ResponseEntity.ok(usuarioActualizado);
     }catch (IllegalArgumentException e) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
