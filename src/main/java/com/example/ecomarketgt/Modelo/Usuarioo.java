@@ -1,8 +1,5 @@
 package com.example.ecomarketgt.Modelo;
 
-
-
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -46,16 +43,17 @@ public class Usuarioo {
     private String telefono; // telefono del usuario
     
     @Column(nullable = false)
-    private String direccion;
+    private String direccion; // direccion del usuario
     
     @Column(nullable = false)
-    private String password;
+    private String password; // contraseña del usuario
 
     
    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idPerfil", nullable = false)
-    private Perfil perfil;
+    @ManyToOne(fetch = FetchType.EAGER) // relacion muchos a uno
+    // EAGER: carga los datos de la tabla relacionada al momento de cargar el usuario
+    @JoinColumn(name = "idPerfil", nullable = false) // llave foranea
+    private Perfil perfil; // perfil del usuario
 
   
 }
