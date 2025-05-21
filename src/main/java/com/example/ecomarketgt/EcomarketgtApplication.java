@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "com.example.ecomarketgt") // Escanea el paquete base
 public class EcomarketgtApplication {
 
+    public EcomarketgtApplication() {
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(EcomarketgtApplication.class, args);
     }
