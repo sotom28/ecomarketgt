@@ -67,10 +67,14 @@ public class UsuariooController {
     //guardar un usuario en la base de datos
     @PostMapping("/guardar")
     public ResponseEntity<Usuarioo> guardar(@Valid @RequestBody Usuarioo usuarioo) {
-    Usuarioo nuevoUsuarioo = usuarioService.Guardar(usuarioo);
-    return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuarioo);
+        try {
+            Usuarioo nuevoUsuarioo = usuarioService.Guardar(usuarioo);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuarioo);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
     }
-
+       
     
 
     ///ok 
@@ -136,7 +140,9 @@ public class UsuariooController {
 
     // Verifica si no se encontraron usuarios
     if (usuarios.isEmpty()) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se han encontrado usuarios que coincidan con el nombre");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No se han encontrado usuarios que coincidan con el nombre");
+    
+        
     }
 
     // Devuelve la lista de usuarios encontrados
@@ -165,6 +171,7 @@ public class UsuariooController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.ok(usuarios.get(0));
+        
     }
 
 

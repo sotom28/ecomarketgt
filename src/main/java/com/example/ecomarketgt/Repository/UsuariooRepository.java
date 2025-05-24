@@ -14,7 +14,7 @@ import com.example.ecomarketgt.Modelo.Usuarioo;// importando la clase Usuarioo
 public interface UsuariooRepository extends JpaRepository<Usuarioo,Long>{
     
     @Query("SELECT p FROM Usuarioo p WHERE LOWER(email) LIKE LOWER(CONCAT('%',:email,'%'))")  // consulta para buscar por email
-    List<Usuarioo> findByEmail(String email);
+    List<Usuarioo> findByEmail(String email); 
 
 
     @Query("SELECT p FROM Usuarioo p WHERE LOWER(nombres) LIKE LOWER(CONCAT('%',:nombres,'%'))") // consulta para buscar por nombres
