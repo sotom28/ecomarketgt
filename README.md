@@ -15,9 +15,9 @@
 
 - Java 17+
 - Oracle Database (Cloud o local)
-- Spring boot
-- lombok
-- Spring Data JPA
+- Spring boot: 
+- lombok : 
+- Spring Data JPA : 
 
 ## Configuración
 
@@ -43,6 +43,10 @@ mvnw.cmd spring-boot:run
 La API estará disponible en:  
 `http://localhost:8080/api/usuario`
 
+ 
+ la escructura del proyecto
+
+
 ## Endpoints principales
 
 - `GET /api/usuario/listar` - Listar todos los usuarios
@@ -53,7 +57,22 @@ La API estará disponible en:
 - `GET /api/usuario/buscaremail/{email}` - Buscar usuario por email
 - `GET /api/usuario/buscarrut/{rut}` - Buscar usuario por rut
 
+## Variables de entorno recomendadas
 
+- `SERVER_PORT` (puerto del servidor,  8080)
+- `SPRING_DATASOURCE_USERNAME`
+- `SPRING_DATASOURCE_PASSWORD`
+
+## Ejemplo de petición
+
+```json
+POST /api/usuario/guardar
+{
+  "nombre": "Juan Perez",
+  "email": "juan@correo.com",
+  "perfil": "ADMIN"
+}
+```
 
 
 
