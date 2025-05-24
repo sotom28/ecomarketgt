@@ -1,6 +1,6 @@
 ﻿# MICROSERVICIOS:
  # User  Managegement API
- Este proyecto es un API RESt desarrollado con Spring Boot que permirte la gestion de usuarios, Incluye operacion de CRUD(Crear, leer, Actualizar, eliminar
+ Este proyecto es un API RESt desarrollado con Spring Boot que permirte la gestion de usuarios, Incluye operacion de CRUD(Crear, leer, Actualizar, eliminar ,  ya que esta trabajando directamente con entidades jpa.
  
  
 ## Características
@@ -10,7 +10,7 @@
 - Arquitectura basada en servicios
 - Ejemplo de estructura de proyecto limpia
 - Maven Version 4.0.0
-- 
+
 ## Requisitos
 
 - Java 17+
