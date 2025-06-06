@@ -27,4 +27,8 @@ public class Perfil {   // Nombre de la tabla en la base de datos
     
     private String permiso; // Permisos asociados al perfil
 
+
+    
+    
+
 }

@@ -56,6 +56,13 @@
 				<artifactId>osdt_cert</artifactId>
 				<version>19.8.0.0</version>
 			</dependency>
+
+			<dependency>
+				<groupId>net.datafaker</groupId>
+				<artifactId>datafaker</artifactId>
+				<version>2.4.2</version>
+			</dependency>
+
 		
 		<dependency>
         <groupId>javax.validation</groupId>
