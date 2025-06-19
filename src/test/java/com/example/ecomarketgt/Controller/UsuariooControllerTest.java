@@ -21,6 +21,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
 @WebMvcTest(UsuariooController.class)
@@ -68,5 +69,25 @@ public class UsuariooControllerTest {
 
         }
 
+            @Test
+            public void testGuardarUsuarioInvalido() throws Exception {
+                Usuarioo usuarioInvalido = new Usuarioo();
+                usuarioInvalido.setId(2L);
+                usuarioInvalido.setRut(""); // Rut vacío, inválido
+                usuarioInvalido.setNombres(""); // Nombre vacío, inválido
+
+                mockMvc.perform(post("/api/usuario/guardar")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(usuarioInvalido)))
+                        .andExpect(status().isBadRequest());
+
     }
 
+            @Test // Test para obtener todos los usuarios
+            public void testObtenerUsuarioPorId() throws Exception {
+                when(usuarioService.findById(1L)).thenReturn(usuario);
+
+                mockMvc.perform(get("/api/usuario/1"))
+                        .andExpect(status().isOk());
+            }
+        }
