@@ -66,12 +66,7 @@ public class UsuariooControllerTest {
                 .content(objectMapper.writeValueAsString(usuario)))
                 .andExpect(status().isCreated());
                 
-                
-
         }
-
-        
-    
 
             @Test // Test para obtener todos los usuarios
             public void testObtenerUsuarioPorId() throws Exception {
@@ -89,5 +84,5 @@ public class UsuariooControllerTest {
         }
 
 
-        
+
         }
