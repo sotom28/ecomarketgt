@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ecomarketgt.Modelo.Usuarioo;
 import com.example.ecomarketgt.Service.UsuariooService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 /// heteoas
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +27,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 
-
+@Tag(name = "UsuariooControllerV2", description = "Controlador para manejar operaciones de usuario en la versión 2")
 @RestController
 @RequestMapping("/api/v2/usuario") // nueva ruta base para la versión 2 del controlador
 public class UsuariooControllerV2 {
@@ -33,14 +36,24 @@ public class UsuariooControllerV2 {
 private UsuariooService usuarioService;
 
 
-
-
+@GetMapping("/metodos")
+public ResponseEntity<List<String>> metodosDisponibles() {
+    List<String> metodos = List.of(
+        "GET /api/v2/usuario/listar           - Listar todos los usuarios",
+        "POST /api/v2/usuario/crear          - Crear un usuario",
+        "GET /api/v2/usuario/{id}          - Buscar un usuario por id",
+        "PUT /api/v2/usuario/actulizar/{id}      - Actualizar un usuario por id",
+        "DELETE /api/v2/usuario/eliminar/{id}   - Eliminar un usuario por id"
+    );
+    return ResponseEntity.ok(metodos);
+}
 
 
 
 
  // GET /api/v2/usuario/{id}
 // Aquí puedes agregar los métodos específicos para la versión 2 del controlador
+@Operation(summary = "Obtener usuario por ID", description = "Obtiene un usuario por su ID en la versión 2 del controlador")
 @GetMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
 public ResponseEntity<EntityModel<Usuarioo>> obtenerPorId(@PathVariable long id) {
     Usuarioo usuario = usuarioService.findById(id);
@@ -58,6 +71,8 @@ public ResponseEntity<EntityModel<Usuarioo>> obtenerPorId(@PathVariable long id)
 
    // GET /api/v2/usuario 
 ///// // listar todos los usuarios en la version 2
+/// 
+@Operation (summary = "Listar usuarios", description = "Obtiene una lista de todos los usuarios en la versión 2 del controlador")
 @GetMapping(value = "/listar", produces = MediaTypes.HAL_JSON_VALUE)
 public ResponseEntity<CollectionModel<EntityModel<Usuarioo>>> listarUsuarios() {
     List<Usuarioo> usuarios = usuarioService.findAll();
@@ -77,7 +92,8 @@ public ResponseEntity<CollectionModel<EntityModel<Usuarioo>>> listarUsuarios() {
 
    // POST /api/v2/usuario
 ////////// crear un nuevo usuario en la version 2
-@PostMapping(produces = MediaTypes.HAL_JSON_VALUE)
+@Operation(summary = "Crear usuario", description = "Crea un nuevo usuario en la versión 2 del controlador")
+@PostMapping(value = "/crear",produces = MediaTypes.HAL_JSON_VALUE)
 public ResponseEntity<EntityModel<Usuarioo>> crearUsuario (@RequestBody  Usuarioo usuarioo){
     Usuarioo nuevoUsuario = usuarioService.Guardar(usuarioo);
     EntityModel<Usuarioo> resource = EntityModel.of(nuevoUsuario);
@@ -92,6 +108,7 @@ public ResponseEntity<EntityModel<Usuarioo>> crearUsuario (@RequestBody  Usuario
     }
 // PUT /api/v2/usuario/{id}
 //////// // actualizar un usuario en la version 2
+@Operation(summary = "Actualizar usuario", description = "Actualiza un usuario existente por su ID en la versión 2 del controlador")
 @PutMapping(value = "/actualizar/{id}", produces = MediaTypes.HAL_JSON_VALUE)
 public ResponseEntity<EntityModel<Usuarioo>> actualizarUsuario (@PathVariable Long id, @RequestBody Usuarioo usuarioo){
     usuarioo.setId(id);
@@ -103,8 +120,10 @@ public ResponseEntity<EntityModel<Usuarioo>> actualizarUsuario (@PathVariable Lo
         .listarUsuarios()).withRel("usuarios"));
     return ResponseEntity.ok(resource);
 }
+
         // DELETE /api/v2/usuario/{id}
-        @DeleteMapping(value = "eliminar/{id}", produces = MediaTypes.HAL_JSON_VALUE)
+        @Operation(summary = "Eliminar usuario", description = "Elimina un usuario por su ID en la versión 2 del controlador")
+        @DeleteMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
         public ResponseEntity<?> eliminarUsuario(@PathVariable Long id) {
             usuarioService.delete(id);
             return ResponseEntity.noContent().build();

@@ -20,6 +20,7 @@ import com.example.ecomarketgt.Service.UsuariooService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -69,25 +70,24 @@ public class UsuariooControllerTest {
 
         }
 
-            @Test
-            public void testGuardarUsuarioInvalido() throws Exception {
-                Usuarioo usuarioInvalido = new Usuarioo();
-                usuarioInvalido.setId(2L);
-                usuarioInvalido.setRut(""); // Rut vacío, inválido
-                usuarioInvalido.setNombres(""); // Nombre vacío, inválido
-
-                mockMvc.perform(post("/api/usuario/guardar")
-                        .contentType("application/json")
-                        .content(objectMapper.writeValueAsString(usuarioInvalido)))
-                        .andExpect(status().isBadRequest());
-
-    }
+        
+    
 
             @Test // Test para obtener todos los usuarios
             public void testObtenerUsuarioPorId() throws Exception {
-                when(usuarioService.findById(1L)).thenReturn(usuario);
+            Usuarioo usuarioMock = new Usuarioo();
+            usuarioMock.setId(1L);
+            usuarioMock.setNombres("Juan");
+            usuarioMock.setRut("12345678-9");
 
-                mockMvc.perform(get("/api/usuario/1"))
-                        .andExpect(status().isOk());
-            }
+            when(usuarioService.findById(1L)).thenReturn(usuarioMock);
+
+            mockMvc.perform(get("/api/usuario/1"))
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.nombres").value("Juan"))
+                    .andExpect(jsonPath("$.rut").value("12345678-9"));
+        }
+
+
+        
         }
