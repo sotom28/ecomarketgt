@@ -42,7 +42,7 @@ public ResponseEntity<List<String>> metodosDisponibles() {
         "GET /api/v2/usuario/listar           - Listar todos los usuarios",
         "POST /api/v2/usuario/crear          - Crear un usuario",
         "GET /api/v2/usuario/{id}          - Buscar un usuario por id",
-        "PUT /api/v2/usuario/actulizar/{id}      - Actualizar un usuario por id",
+        "PUT /api/v2/usuario/actualizar/{id}      - Actualizar un usuario por id",
         "DELETE /api/v2/usuario/eliminar/{id}   - Eliminar un usuario por id"
     );
     return ResponseEntity.ok(metodos);
@@ -110,18 +110,24 @@ public ResponseEntity<EntityModel<Usuarioo>> crearUsuario (@RequestBody  Usuario
 //////// // actualizar un usuario en la version 2
 @Operation(summary = "Actualizar usuario", description = "Actualiza un usuario existente por su ID en la versión 2 del controlador")
 @PutMapping(value = "/actualizar/{id}", produces = MediaTypes.HAL_JSON_VALUE)
-public ResponseEntity<EntityModel<Usuarioo>> actualizarUsuario (@PathVariable Long id, @RequestBody Usuarioo usuarioo){
-    usuarioo.setId(id);
-    Usuarioo usuarioActualizado = usuarioService.Guardar(usuarioo);
-    EntityModel<Usuarioo> resource = EntityModel.of(usuarioActualizado);
-    resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuariooControllerV2.class)
-        .obtenerPorId(usuarioActualizado.getId())).withSelfRel());
-    resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuariooControllerV2.class)
-        .listarUsuarios()).withRel("usuarios"));
-    return ResponseEntity.ok(resource);
+public ResponseEntity<EntityModel<Usuarioo>> actualizarUsuario(@PathVariable Long id, @RequestBody Usuarioo usuarioo) {
+    try {
+        usuarioo.setId(id);
+        Usuarioo usuarioActualizado = usuarioService.Guardar(usuarioo);
+        EntityModel<Usuarioo> resource = EntityModel.of(usuarioActualizado);
+        resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuariooControllerV2.class)
+            .obtenerPorId(usuarioActualizado.getId())).withSelfRel());
+        resource.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuariooControllerV2.class)
+            .listarUsuarios()).withRel("usuarios"));
+        return ResponseEntity.ok(resource);
+    } catch (Exception e) {
+        return ResponseEntity.status(500).body(EntityModel.of(new Usuarioo()).add(
+            WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(UsuariooControllerV2.class).listarUsuarios()).withRel("usuarios")));
+    }
 }
+        
 
-        // DELETE /api/v2/usuario/{id}
+// DELETE /api/v2/usuario/{id}
         @Operation(summary = "Eliminar usuario", description = "Elimina un usuario por su ID en la versión 2 del controlador")
         @DeleteMapping(value = "/{id}", produces = MediaTypes.HAL_JSON_VALUE)
         public ResponseEntity<?> eliminarUsuario(@PathVariable Long id) {
@@ -130,5 +136,5 @@ public ResponseEntity<EntityModel<Usuarioo>> actualizarUsuario (@PathVariable Lo
         }
 
 
+    }
 
-}

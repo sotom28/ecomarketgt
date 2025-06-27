@@ -20,6 +20,7 @@ import com.example.ecomarketgt.Repository.UsuariooRepository;
 import net.datafaker.Faker;
  // Solo se ejecuta en el perfil de desarrollo
 @Component
+
 public class Dataloader implements CommandLineRunner {
 
     @Autowired
@@ -28,8 +29,14 @@ public class Dataloader implements CommandLineRunner {
     @Autowired
     private PerfilRepository perfilRepository;
 
+
+    
+
+
+
     @Override
     public void run(String... args) throws Exception {
+        try {
         Faker faker = new Faker();
 
         // Buscar perfiles existentes
@@ -47,8 +54,8 @@ public class Dataloader implements CommandLineRunner {
         }
 
         // Generar usuarios falsos
-        List <Usuarioo> usuariosExistentes = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        List<Usuarioo> usuariosExistentes = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
             Usuarioo usuario = new Usuarioo();
             usuario.setRut(faker.idNumber().valid());
             usuario.setNombres(faker.name().fullName());
@@ -59,15 +66,14 @@ public class Dataloader implements CommandLineRunner {
             usuario.setPassword(faker.internet().password());
             usuario.setPerfil(faker.bool().bool() ? adminPerfil : userPerfil);
             usuariosExistentes.add(usuario);
-
         }
+
         // Guardar los usuarios en la base de datos
         usuariooRepository.saveAll(usuariosExistentes);
         System.out.println("Datos de prueba cargados correctamente.");
+    } catch (Exception e) {
+        System.err.println("Error al cargar datos de prueba: " + e.getMessage());
+        e.printStackTrace();
     }
-        
-
-    }
-    
-
-    
+}
+}
