@@ -1,9 +1,4 @@
 package com.example.ecomarketgt;
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
