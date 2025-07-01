@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.example.ecomarketgt.Modelo.Perfil;
@@ -14,6 +14,7 @@ import com.example.ecomarketgt.Repository.UsuariooRepository;
 
 import net.datafaker.Faker;
  // Solo se ejecuta en el perfil de desarrollo
+@Profile("dev") // Solo se ejecuta en el perfil de desarrollo
 @Component
 
 public class Dataloader implements CommandLineRunner {
@@ -33,6 +34,7 @@ public class Dataloader implements CommandLineRunner {
     public void run(String... args) throws Exception {
         try {
         Faker faker = new Faker();
+        
 
         // Buscar perfiles existentes
         Perfil adminPerfil = perfilRepository.findByDescripcion("Administrador");
@@ -50,7 +52,7 @@ public class Dataloader implements CommandLineRunner {
 
         // Generar usuarios falsos
         List<Usuarioo> usuariosExistentes = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             Usuarioo usuario = new Usuarioo();
             usuario.setRut(faker.idNumber().valid());
             usuario.setNombres(faker.name().fullName());
