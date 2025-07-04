@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 
-@Tag(name = "UsuariooControllerV2", description = "Controlador para manejar operaciones de usuario en la versión 2")
+@Tag(name = "Usuario API v2 (HATEOAS)", description = "Operaciones CRUD para la gestión de usuarios con HATEOAS - Versión 2")
 @RestController
 @RequestMapping("/api/v2/usuario") // nueva ruta base para la versión 2 del controlador
 public class UsuariooControllerV2 {
@@ -35,7 +35,7 @@ public class UsuariooControllerV2 {
 @Autowired    
 private UsuariooService usuarioService;
 
-
+@Operation(summary = "Métodos disponibles v2", description = "Lista todos los endpoints disponibles en la API v2 con HATEOAS")
 @GetMapping("/metodos")
 public ResponseEntity<List<String>> metodosDisponibles() {
     List<String> metodos = List.of(

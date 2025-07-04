@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 
 
-@Tag(name = "UsuariooController", description = "Controlador para manejar operaciones de usuario")
+@Tag(name = "Usuario API v1", description = "Operaciones CRUD para la gestión de usuarios - Versión 1")
 @RestController
 @RequestMapping("/api/usuario") // ruta base para el controlador api/usuarioo
 public class UsuariooController {
@@ -40,6 +40,7 @@ public class UsuariooController {
     @Autowired
     private UsuariooService usuarioService;
 
+    @Operation(summary = "Métodos disponibles", description = "Lista todos los endpoints disponibles en esta API")
     @GetMapping("/metodos")
     public ResponseEntity<List<String>> metodosdisponibles(){
     List<String> metodos = List.of(

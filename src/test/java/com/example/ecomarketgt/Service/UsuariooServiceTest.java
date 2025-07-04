@@ -35,11 +35,8 @@ public class UsuariooServiceTest {
         usuarioo.setRut("12345678-9");
         usuarioo.setNombres("Juan");
         usuarioo.setApellidos("Pérez");
-
         when(usuariooRepository.save(any(Usuarioo.class))).thenReturn(usuarioo);
-
         Usuarioo resultado = usuariooService.Guardar(usuarioo);
-
         assertNotNull(resultado);
         assertEquals("12345678-9", resultado.getRut());
         assertEquals("Juan", resultado.getNombres());
@@ -54,14 +51,9 @@ public class UsuariooServiceTest {
         usuarioo.setApellidos("Pérez");
         List<Usuarioo> usuarios = java.util.Arrays.asList(usuarioo);
         when(usuariooRepository.findAll()).thenReturn(usuarios);
-
         List<Usuarioo> resultado = usuariooService.findAll();
-
         assertFalse(resultado.isEmpty());
         assertEquals(1, resultado.size());
-
-
-
     }
     
     @Test // test eliminar usuario
@@ -71,13 +63,10 @@ public class UsuariooServiceTest {
     usuarioExistente.setNombres("Juan");
     usuarioExistente.setApellidos("Pérez");
     usuarioExistente.setRut("12345678-9");
-
     // Simula que el usuario existe en la base de datos
     when(usuariooRepository.existsById(1L)).thenReturn(true);
     doNothing().when(usuariooRepository).deleteById(1L);
-
     usuariooService.delete(1L);
-
     verify(usuariooRepository, times(1)).deleteById(1L);
 }
 
@@ -86,10 +75,8 @@ public class UsuariooServiceTest {
             Usuarioo usuarioo = new Usuarioo();
             usuarioo.setNombres("Juan");
             List<Usuarioo> usuarios = java.util.Arrays.asList(usuarioo);
-
             when(usuariooRepository.findByNombres("juan")).thenReturn(usuarios);
             List<Usuarioo> resultado = usuariooService.findByNombres("juan");
-
             assertFalse(resultado.isEmpty());
             assertEquals("Juan", resultado.get(0).getNombres());
 
@@ -98,12 +85,9 @@ public class UsuariooServiceTest {
         public void testFindByRut(){
             Usuarioo usuarioo = new Usuarioo();
             usuarioo.setRut("12345678-9");
-            
             List <Usuarioo> usuarioos= java.util.Arrays.asList(usuarioo);
-
             when(usuariooRepository.findByRut("12345678-9")).thenReturn(usuarioos);   
             List<Usuarioo> resultado = usuariooService.findByRut("12345678-9");
-
             assertFalse(resultado.isEmpty());
             assertEquals("12345678-9", resultado.get(0).getRut());
         }
@@ -116,12 +100,9 @@ public class UsuariooServiceTest {
             usuarioaActualizado.setNombres("juan Carlos");
             usuarioaActualizado.setApellidos("Pérez");
             usuarioaActualizado.setRut("12345678-9"); 
-
             when(usuariooRepository.existsById(1L)).thenReturn(true);
             when(usuariooRepository.save(any(Usuarioo.class))).thenReturn(usuarioaActualizado);
-
             Usuarioo resultado = usuariooService.update(usuarioaActualizado);
-
             assertNotNull(resultado);
             assertEquals("juan Carlos", resultado.getNombres());
             assertEquals("Pérez", resultado.getApellidos());

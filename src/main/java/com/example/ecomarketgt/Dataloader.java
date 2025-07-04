@@ -25,11 +25,6 @@ public class Dataloader implements CommandLineRunner {
     @Autowired
     private PerfilRepository perfilRepository;
 
-
-    
-
-
-
     @Override
     public void run(String... args) throws Exception {
         try {
